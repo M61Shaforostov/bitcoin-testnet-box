@@ -4,3 +4,6 @@
 ?/regtest/*
 !?/regtest/server.pem
 !?/regtest/server.cert
+
+*.bak
+
