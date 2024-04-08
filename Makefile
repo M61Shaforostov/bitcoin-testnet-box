@@ -8,7 +8,11 @@ B2=-datadir=2 $(B2_FLAGS)
 BLOCKS=1
 ADDRESS=
 AMOUNT=
-ACCOUNT=
+FEERATE=1
+ADDRESSLABEL=
+ADDRESSTYPE=
+W1=wallet1
+W2=wallet2
 
 start:
 	$(BITCOIND) $(B1) -daemon
@@ -26,16 +30,16 @@ getinfo:
 	$(BITCOINCLI) $(B2) -getinfo
 
 sendfrom1:
-	$(BITCOINCLI) $(B1) sendtoaddress $(ADDRESS) $(AMOUNT)
+	$(BITCOINCLI) $(B1) -named sendtoaddress address="$(ADDRESS)" amount=$(AMOUNT) fee_rate=$(FEERATE)
 
 sendfrom2:
-	$(BITCOINCLI) $(B2) sendtoaddress $(ADDRESS) $(AMOUNT)
+	$(BITCOINCLI) $(B2) -named sendtoaddress address="$(ADDRESS)" amount=$(AMOUNT) fee_rate=$(FEERATE)
 
 address1:
-	$(BITCOINCLI) $(B1) getnewaddress $(ACCOUNT)
+	$(BITCOINCLI) $(B1) getnewaddress $(ADDRESSLABEL) $(ADDRESSTYPE)
 
 address2:
-	$(BITCOINCLI) $(B2) getnewaddress $(ACCOUNT)
+	$(BITCOINCLI) $(B2) getnewaddress $(ADDRESSLABEL) $(ADDRESSTYPE)
 
 stop:
 	$(BITCOINCLI) $(B1) stop
@@ -50,3 +54,10 @@ docker-build:
 
 docker-run:
 	docker run -ti bitcoin-testnet-box
+
+wallet1:
+	$(BITCOINCLI) $(B1) createwallet $(W1)
+
+wallet2:
+	$(BITCOINCLI) $(B2) createwallet $(W2)
+
