@@ -48,51 +48,20 @@ $ make start
 
 ```
 $ make getinfo
-bitcoin-cli -datadir=1  getinfo
-{
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
-}
-bitcoin-cli -datadir=2  getinfo
-{
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
-}
 ```
 ## Creating wallets
 
 ```
-bitcoin-cli -datadir=1 createwallet wallet1
+make wallet1
 ```
 
 ```
-bitcoin-cli -datadir=2 createwallet wallet2
+make wallet2
+```
+
+## Verify that there is a wallet on each node
+```
+$ make getinfo
 ```
 
 ## Generating blocks
@@ -108,13 +77,10 @@ To generate a block:
 $ make generate
 ```
 
+We need to generate at least 100 blocks before there is a balance in the first wallet.
+
 To generate more than 1 block:
 
-```
-$ make generate BLOCKS=10
-```
-
-## Need to generate at least 100 blocks before there will be a balance in the first wallet
 ```
 $ make generate BLOCKS=200
 ```
