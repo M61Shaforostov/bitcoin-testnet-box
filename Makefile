@@ -13,6 +13,10 @@ ADDRESSLABEL=
 ADDRESSTYPE=
 W1=wallet1
 W2=wallet2
+PORT1=19000
+RPCPORT1=19001
+PORT2=19010
+RPCPORT2=19011
 
 start:
 	$(BITCOIND) $(B1) -daemon
@@ -50,10 +54,10 @@ clean:
 	find 2/regtest/* -not -name 'server.*' -delete
 
 docker-build:
-	docker build --tag bitcoin-testnet-box .
+	docker build -t bitcoin-testnet-box .
 
 docker-run:
-	docker run -ti bitcoin-testnet-box
+	docker run -t -i -p $(PORT1):$(RPCPORT1) -p $(PORT2):$(RPCPORT2) bitcoin-testnet-box
 
 wallet1:
 	$(BITCOINCLI) $(B1) createwallet $(W1)

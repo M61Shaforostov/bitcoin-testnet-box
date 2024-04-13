@@ -136,7 +136,7 @@ Pull the image
   * `docker pull freewil/bitcoin-testnet-box`
 
 or build it yourself from this directory
-  * `docker build -t bitcoin-testnet-box .`
+  * `make docker-build`
 
 ### Running docker container
 The docker image will run two bitcoin nodes in the background and is meant to be
@@ -148,9 +148,10 @@ from outside the container.
 
 or if you built the docker image yourself:
 
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
+   `$ make docker-run`
 
 ## Running without docker
 To run without docker, one should download the supported Bitcoin core version. 
 To find the supported version, search for the `BITCOIN_CORE_VERSION` environment variable
 in the `Dockerfile` file.
+
